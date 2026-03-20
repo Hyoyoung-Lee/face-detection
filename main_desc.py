@@ -260,6 +260,7 @@ while True:
     # 얼굴 경계 : 얼굴 영역 크기 계산
       # min_coords = [min_x, min_y]
       # max_coords = [max_x, max_y]
+    # 아래 face_size와의 차이 : face_size는 얼굴 크기 계산해서 버퍼에 저장하는 값, min_coords/max_coords는 얼굴 영역 시각화 위해 계산하는 값
     min_coords = np.min(shape_2d, axis=0)
     max_coords = np.max(shape_2d, axis=0)
 
