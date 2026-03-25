@@ -40,10 +40,9 @@ def apply_overlay(base_frame, overlay_img, center_x, center_y, overlay_size=None
   mask = cv2.medianBlur(a, 5)
 
   # 오버레이 이미지 크기 => # 높이, 너비, 채널 수
-  h, w, _ = overlay_img.shape
-
   # roi 따로 쓰는 이유 : 전체 이미지 처리 안 하고, 필요한 부분만 처리
   # 얼굴 중심(x, y) 기준으로 w, h 크기만큼 사각형 영역 추출
+  h, w, _ = overlay_img.shape
   roi = output_frame[int(center_y-h/2):int(center_y+h/2), int(center_x-w/2):int(center_x+w/2)]
 
 
@@ -59,6 +58,8 @@ def apply_overlay(base_frame, overlay_img, center_x, center_y, overlay_size=None
 
   # 최종 출력 : 영상 출력이라 BGR 3채널만 필요
   return cv2.cvtColor(output_frame, cv2.COLOR_BGRA2BGR)
+
+
 
 
 
@@ -100,6 +101,7 @@ while True:
       shape_2d = np.array([[p.x + face_roi[2], p.y + face_roi[0]] for p in dlib_shape.parts()])
 
 
+
     # 랜드마크 시각화
     for s in shape_2d:
       cv2.circle(landmark_frame, center=tuple(s), radius=1, color=(255, 255, 255), thickness=2, lineType=cv2.LINE_AA)
@@ -115,7 +117,8 @@ while True:
     cv2.circle(landmark_frame, center=tuple(max_coords), radius=1, color=(255, 0, 0), thickness=2, lineType=cv2.LINE_AA)
 
 
-    # 얼굴 크기 계산
+
+    # 스티커 크기 계산 위해 -> 얼굴 크기 계산
     face_size = max(max_coords - min_coords)
     face_sizes.append(face_size)
 
